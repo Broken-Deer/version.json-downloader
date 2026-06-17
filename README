@@ -1,0 +1,73 @@
+Minecraft Version Manifest Downloader
+=====================================
+
+This is a simple shell script that downloads all Minecraft version JSON
+files from Mojang's official version manifest.
+
+It uses curl to download data and jq to parse JSON.
+
+Requirements
+------------
+
+jq
+curl
+
+Both tools must be installed and available in PATH.
+
+Usage
+-----
+
+Make the script executable:
+
+    chmod +x script.sh
+
+Run it:
+
+    ./script.sh
+
+Options
+-------
+
+    --skip-release     do not download release versions
+    --skip-snapshot    do not download snapshot versions
+    --skip-alpha       do not download old alpha versions
+    --skip-beta        do not download old beta versions
+
+Multiple options can be combined.
+
+Output
+------
+
+All downloaded version files are saved under:
+
+    results/
+
+Each file is named:
+
+    <version_id>.json
+
+Failures
+---------
+
+If a download fails, the version id is written to:
+
+    failed_YYYYMMDD_HHMMSS.txt
+
+If any failure occurs, the script exits with status 1.
+
+Network
+-------
+
+The script downloads the version manifest from Mojang:
+
+    https://piston-meta.mojang.com/mc/game/version_manifest_v2.json
+
+It retries failed requests automatically (curl retry enabled).
+
+Environment
+-----------
+
+You may override the manifest URL using:
+
+    VERSION_MANIFEST_REMOTE
+
